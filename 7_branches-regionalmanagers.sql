@@ -2,14 +2,6 @@ DROP TABLE Accounts
 DROP TABLE Members
 DROP TABLE Branches
 GO
-
-USE [CreditUnion]
-GO
-/****** Object:  Table [dbo].[Accounts]    Script Date: 10/28/2025 3:13:17 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[Accounts](
 	[AccountNumber] [nvarchar](20) NOT NULL,
 	[MemberId] [int] NOT NULL,
@@ -105,4 +97,9 @@ ALTER TABLE [dbo].[Accounts]  WITH CHECK ADD  CONSTRAINT [FK_Accounts_Members] F
 REFERENCES [dbo].[Members] ([MemberID])
 GO
 ALTER TABLE [dbo].[Accounts] CHECK CONSTRAINT [FK_Accounts_Members]
+GO
+ALTER TABLE [dbo].[Members]  WITH CHECK ADD  CONSTRAINT [FK_Members_Branches] FOREIGN KEY([BranchID])
+REFERENCES [dbo].[Branches] ([BranchId])
+GO
+ALTER TABLE [dbo].[Members] CHECK CONSTRAINT [FK_Members_Branches]
 GO

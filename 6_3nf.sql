@@ -1,13 +1,3 @@
-USE [CreditUnion]
-GO
-
-/****** Object:  Table [dbo].[Branches]    Script Date: 10/28/2025 1:27:43 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
 CREATE TABLE [dbo].[Branches](
 	[BranchId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar](50) NOT NULL,
@@ -21,14 +11,19 @@ GO
 
 INSERT INTO Branches(Name, Manager)
 SELECT DISTINCT BRanchName, BranchManager FROM Members
-
+GO
 ALTER TABLE Members
 	ADD BranchID int NULL
-	
+GO
 UPDATE Members SET BranchID = B.BranchId
 FROM Members M JOIN Branches B ON M.BranchName = B.Name AND M.BranchManager = B.Manager
+GO
+ALTER TABLE [dbo].[Members]  WITH CHECK ADD  CONSTRAINT [FK_Members_Branches] FOREIGN KEY([BranchID])
+REFERENCES [dbo].[Branches] ([BranchId])
+GO
+
+ALTER TABLE [dbo].[Members] CHECK CONSTRAINT [FK_Members_Branches]
+GO
 
 ALTER TABLE Members DROP COLUMN BranchName
 ALTER TABLE Members DROP COLUMN BranchManager
-
-
