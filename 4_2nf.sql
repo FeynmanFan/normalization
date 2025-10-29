@@ -1,6 +1,6 @@
 ALTER TABLE Members
 	ADD BranchName varchar(50) NULL
-
+GO
 UPDATE Members Set BranchName = A.BranchName
 FROM Members M JOIN Accounts A ON M.MemberId = A.MemberId
 
